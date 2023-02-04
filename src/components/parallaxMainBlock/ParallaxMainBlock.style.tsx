@@ -7,7 +7,7 @@ export const ParallaxMainContainer = styled.div`
 
 export const Parallax = styled.div`
   background-image: url('https://images.deliveryhero.io/image/fd-bd/LH/u0pp-hero.jpg');
-  height: 59rem;
+  height: 60rem;
   background-position: 10rem 45%;
   background-repeat: no-repeat;
   background-size: cover;

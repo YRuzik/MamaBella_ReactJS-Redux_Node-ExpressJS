@@ -10,4 +10,4 @@ const MainReducer = (state = initialState, action: any) => {
     }
 }
 
-export default MainReducer
+export default MainReducer;

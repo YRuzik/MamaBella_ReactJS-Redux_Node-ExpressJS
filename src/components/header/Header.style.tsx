@@ -33,6 +33,7 @@ export const HeaderLogo = styled.div`
 
 export const HeaderLogoTitle = styled.div`
   font-size: 2rem;
+  font-family: Pacifico;
 `
 
 export const HeaderActions = styled.div`
