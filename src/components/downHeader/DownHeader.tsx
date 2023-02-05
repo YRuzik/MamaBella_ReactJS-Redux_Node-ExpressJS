@@ -1,23 +1,17 @@
 import {
     DownHeaderAnchor,
     DownHeaderBody,
-    DownHeaderBodySticky,
+    DownHeaderBodySticky, DownHeaderCardButton,
     DownHeaderElement,
     DownHeaderElements,
     DownHeaderWrapper
 } from "./DownHeader.style";
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import InterfaceService from "../../services/InterfaceService";
 
 const DownHeader = () => {
     const [stickyNavbar, setStickyNavbar] = useState(false)
-
-    const scroller = (e: any, id: string) => {
-        const element = document.getElementById(id);
-        e.preventDefault();
-        element && element.scrollIntoView({ behavior: "smooth", block: "start" });
-        window.history.pushState(id, id, `/#${id}`);
-    }
+    const {scroller} = InterfaceService()
 
     const stickyChecker = () => {
         if (window.scrollY >= 150) {
@@ -48,7 +42,9 @@ const DownHeader = () => {
                 <DownHeaderBodySticky>
                     <DownHeaderWrapper>
                         <DownHeaderElements>
-                            <i className="fa-solid fa-pizza-slice "></i>
+                            <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'main')}>
+                                <i className="fa-solid fa-pizza-slice "></i>
+                            </DownHeaderAnchor>
                             <DownHeaderElement>
                                 <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'pizza')}>
                                     Пицца
@@ -62,17 +58,27 @@ const DownHeader = () => {
                             </DownHeaderElement>
 
                             <DownHeaderElement>
-                                Закуски
+                                <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'snacks')}>
+                                    Закуски
+                                </DownHeaderAnchor>
                             </DownHeaderElement>
 
                             <DownHeaderElement>
-                                Соусы
+                                <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'drinks')}>
+                                    Напитки
+                                </DownHeaderAnchor>
                             </DownHeaderElement>
 
                             <DownHeaderElement>
-                                Напитки
+                                <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'sauces')}>
+                                    Соусы
+                                </DownHeaderAnchor>
                             </DownHeaderElement>
                         </DownHeaderElements>
+
+                        <DownHeaderCardButton>
+                            Корзина
+                        </DownHeaderCardButton>
 
                     </DownHeaderWrapper>
                 </DownHeaderBodySticky>
@@ -93,17 +99,27 @@ const DownHeader = () => {
                             </DownHeaderElement>
 
                             <DownHeaderElement>
-                                Закуски
+                                <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'snacks')}>
+                                    Закуски
+                                </DownHeaderAnchor>
                             </DownHeaderElement>
 
                             <DownHeaderElement>
-                                Соусы
+                                <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'drinks')}>
+                                    Напитки
+                                </DownHeaderAnchor>
                             </DownHeaderElement>
 
                             <DownHeaderElement>
-                                Напитки
+                                <DownHeaderAnchor to={'/'} onClick={(e) => scroller(e, 'sauces')}>
+                                    Соусы
+                                </DownHeaderAnchor>
                             </DownHeaderElement>
                         </DownHeaderElements>
+
+                        <DownHeaderCardButton>
+                            Корзина
+                        </DownHeaderCardButton>
 
                     </DownHeaderWrapper>
                 </DownHeaderBody>

@@ -16,7 +16,7 @@ const Header = () => {
             <HeaderBody>
                 <HeaderWrapper>
                     <HeaderLogo>
-                        <HeaderLogoTitle>
+                        <HeaderLogoTitle id={'main'}>
                             <i className="fa-solid fa-pizza-slice"></i>
                             Mamma Bella
                             <br/>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const MenuBody = styled.div`
   width: 100%;
-  background-color: rgb(51,51,51);
+  background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(43,43,43,1) 100%);
 `
 
 export const MenuWrapper = styled.div`
@@ -27,6 +27,7 @@ export const MenuTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  scroll-margin: 80px;
   
   hr {
     display: block;
@@ -36,15 +37,4 @@ export const MenuTitle = styled.div`
     border-top: 2px solid rgba(255, 172, 82);
     padding: 0;
   }
-`
-
-export const TransitionUp = styled.div`
-  background: url("https://www.pizzaza.ca/application/themes/designed_by_tonik/images/element/pattern.png") repeat-x center center;
-  z-index: 1000000;
-  position: absolute;
-  bottom: 68%;
-  left: 0;
-  width: 159.95%;
-  height: 35px;
-  margin-left: -25rem;
 `

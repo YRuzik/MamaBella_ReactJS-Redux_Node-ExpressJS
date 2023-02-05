@@ -40,7 +40,7 @@ export const DownHeaderBodySticky = styled.div`
 export const DownHeaderWrapper = styled.div`
   padding: 1rem 20rem 1rem 20rem;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
 `
 
 export const DownHeaderElements = styled.div`
@@ -48,7 +48,6 @@ export const DownHeaderElements = styled.div`
   align-items: center;
   
   i {
-    margin: 0;
     margin-right: 1rem;
     font-size: 1.5rem;
     padding: 0;
@@ -62,5 +61,20 @@ export const DownHeaderElement = styled.div`
 
   &:hover {
     color: rgba(255, 172, 82, 0.8);
+  }
+`
+
+export const DownHeaderCardButton = styled.button`
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background: darkorange;
+  color: white;
+  border-radius: 50px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    background: orange;
   }
 `

@@ -7,8 +7,11 @@ import {
     ParallaxContent,
     ParallaxMainContainer
 } from "./ParallaxMainBlock.style";
+import InterfaceService from "../../services/InterfaceService";
 
 const ParallaxMainBlock = () => {
+    const {scroller} = InterfaceService()
+
     return (
         <ParallaxMainContainer>
             <Parallax>
@@ -28,7 +31,7 @@ const ParallaxMainBlock = () => {
                             Войти
                         </MainButton>
 
-                        <MainButtonOutline>
+                        <MainButtonOutline onClick={(e) => scroller(e, 'menu')}>
                             Меню
                         </MainButtonOutline>
                     </MainActions>

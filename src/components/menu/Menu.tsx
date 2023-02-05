@@ -27,7 +27,7 @@ const Menu = () => {
         <MenuBody>
             <MenuWrapper>
                 <MenuHeader>
-                    <MenuTitle>
+                    <MenuTitle id={'menu'}>
                         <hr/>
                         Меню
                         <hr/>
@@ -38,6 +38,15 @@ const Menu = () => {
                 </div>
                 <div id={'salads'} style={{scrollMargin: '80px'}}>
                     <HOCGenreConstructor array={salads} label={'Салаты'}/>
+                </div>
+                <div id={'snacks'} style={{scrollMargin: '80px'}}>
+                    <HOCGenreConstructor array={array} label={'Закуски'}/>
+                </div>
+                <div id={'drinks'} style={{scrollMargin: '80px'}}>
+                    <HOCGenreConstructor array={salads} label={'Напитки'}/>
+                </div>
+                <div id={'sauces'} style={{scrollMargin: '80px'}}>
+                    <HOCGenreConstructor array={array} label={'Соусы'}/>
                 </div>
             </MenuWrapper>
         </MenuBody>
