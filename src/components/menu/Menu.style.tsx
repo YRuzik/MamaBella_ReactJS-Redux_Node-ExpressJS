@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
-
 export const MenuBody = styled.div`
   width: 100%;
-  background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(43,43,43,1) 100%);
+  background: #282c34;
 `
 
 export const MenuWrapper = styled.div`

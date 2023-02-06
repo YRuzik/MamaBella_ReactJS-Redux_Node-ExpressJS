@@ -77,4 +77,8 @@ export const DownHeaderCardButton = styled.button`
   &:hover {
     background: orange;
   }
+
+  @media(max-width: 1400px) {
+    font-size: 1rem;
+  }
 `

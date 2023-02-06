@@ -14,7 +14,7 @@ export const WhiteTransitionUp = styled.div`
   position: absolute;
   left: 0;
   width: 100%;
-  height: 35px;
+  height: 2.1rem;
   margin-top: -1rem;
 `
 
@@ -32,20 +32,74 @@ export const SliderWrapper = styled.div`
 
 export const SliderBody = styled.div`
   display: flex;
-  height: 75%;
+  height: 18vw;
   width: 100%;
   align-items: center;
   justify-content: start;
-  overflow-x: hidden;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
 `
 
 export const SliderItemBody = styled.div`
-    padding: 1rem;
+  padding: 1rem;
+  width: 24.8vw;
+  height: 19vw;
 `
 
 export const SliderItemThumbnail = styled.img`
-  width: 27rem;
-  height: 20rem;
+  width: 23vw;
+  height: 17vw;
   object-fit: cover;
   border-radius: 10px;
+`
+
+export const SliderItemContent = styled.div`
+`
+
+export const SliderItemTextBody = styled.div`
+  font-size: 1.5vw;
+  text-align: start;
+  position: absolute;
+  bottom: 10%;
+  margin-left: 0.5%;
+  z-index: 10000;
+  color: white;
+  font-weight: bold;
+`
+
+export const SliderItemPromo = styled.div`
+    font-size: 1vw;
+`
+
+export const SliderButtonPrev = styled.button`
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  transform: rotate(180deg);
+  font-size: 3rem;
+  padding: 8rem 1rem 10rem 1rem;
+  border: none;
+  background: none;
+  border-radius: 50px;
+  color: wheat;
+  cursor: pointer;
+`
+
+export const SliderButtonNext = styled.button`
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  font-size: 3rem;
+  padding: 10rem 1rem 8rem 1rem;
+  border: none;
+  background: none;
+  border-radius: 50px;
+  color: wheat;
+  cursor: pointer;
+`
+
+export const SliderWrapperSlides = styled.div`
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  transform: ${(props: {xPosition: number}) => `translateX(${props.xPosition}vw)`}
 `

@@ -56,7 +56,7 @@ export const OrderItemActions = styled.div`
 `
 
 export const OrderItemButton = styled.button`
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 3% 6% 3% 6%;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -65,6 +65,10 @@ export const OrderItemButton = styled.button`
   
   &:hover {
     opacity: 0.75;
+  }
+  
+  @media(max-width: 1400px) {
+    font-size: 1rem;
   }
 `
 
