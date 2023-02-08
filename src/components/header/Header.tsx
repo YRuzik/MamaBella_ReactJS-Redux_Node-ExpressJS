@@ -30,16 +30,16 @@ const Header = () => {
 
                         <HeaderAction>
                             <div>
-                                <i className="fa-regular fa-dollar-sign fa-2xl"></i>
+                                <i className='fa-solid fa-basket-shopping fa-2xl'></i>
                             </div>
-                            <div style={{lineHeight: '2rem'}}>Беллакоины</div>
+                            <div style={{lineHeight: '2rem'}}>Корзина</div>
                         </HeaderAction>
 
                         <HeaderAction>
                             <div>
                                 <i className="fa-regular fa-newspaper fa-2xl"></i>
                             </div>
-                            <div style={{lineHeight: '2rem'}}>Мои акции</div>
+                            <div style={{lineHeight: '2rem'}}>Новости</div>
                         </HeaderAction>
 
                         <HeaderAction>

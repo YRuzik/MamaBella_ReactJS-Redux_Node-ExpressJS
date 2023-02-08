@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import pattern from '../../resources/img/pattern.jpg'
 
 export const MenuBody = styled.div`
   width: 100%;
-  background: #282c34;
+  background: url(${pattern}) center;
 `
 
 export const MenuWrapper = styled.div`
   width: 65%;
   margin: 0 auto;
+  padding-top: 3rem;
 `
 
 export const MenuHeader = styled.div`

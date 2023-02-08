@@ -66,7 +66,7 @@ export const DownHeaderElement = styled.div`
 
 export const DownHeaderCardButton = styled.button`
   padding: 0.5rem 2rem 0.5rem 2rem;
-  background: darkorange;
+  background: none;
   color: white;
   border-radius: 50px;
   border: none;
@@ -75,7 +75,7 @@ export const DownHeaderCardButton = styled.button`
   transition: all 0.2s ease-in-out;
   
   &:hover {
-    background: orange;
+    color: orange;
   }
 
   @media(max-width: 1400px) {

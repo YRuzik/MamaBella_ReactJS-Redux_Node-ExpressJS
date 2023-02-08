@@ -15,7 +15,7 @@ const SliderItem = ({thumbnail}: any) => {
                 <SliderItemThumbnail src={thumbnail}/>
                 <SliderItemTextBody>
                     <SliderItemPromo>
-                        Акция!
+                        Новость!
                     </SliderItemPromo>
                     Вкусные выходные!
                 </SliderItemTextBody>

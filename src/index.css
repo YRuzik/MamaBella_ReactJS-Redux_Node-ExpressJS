@@ -6,6 +6,22 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Montserrat Alternates', sans-serif;
+
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  height: 12px;
+  width: 10px;
+}
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: rgba(32,32,32);
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 5px;
 }
 
 @media (max-width: 1400px){

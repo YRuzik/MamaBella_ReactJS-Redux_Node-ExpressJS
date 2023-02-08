@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const SliderContainer = styled.div`
   height: 30rem;
   background: white;
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
 `
 
@@ -32,7 +32,7 @@ export const SliderWrapper = styled.div`
 
 export const SliderBody = styled.div`
   display: flex;
-  height: 18vw;
+  height: 20vw;
   width: 100%;
   align-items: center;
   justify-content: start;
@@ -50,18 +50,23 @@ export const SliderItemThumbnail = styled.img`
   width: 23vw;
   height: 17vw;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 25px;
 `
 
 export const SliderItemContent = styled.div`
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 `
 
 export const SliderItemTextBody = styled.div`
   font-size: 1.5vw;
   text-align: start;
   position: absolute;
-  bottom: 10%;
-  margin-left: 0.5%;
+  margin-top: -5rem;
+  margin-left: 1rem;
   z-index: 10000;
   color: white;
   font-weight: bold;

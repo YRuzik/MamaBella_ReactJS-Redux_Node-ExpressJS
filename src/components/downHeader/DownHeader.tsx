@@ -77,7 +77,7 @@ const DownHeader = () => {
                         </DownHeaderElements>
 
                         <DownHeaderCardButton>
-                            Корзина
+                            <i className='fa-solid fa-basket-shopping fa-2xl'></i>
                         </DownHeaderCardButton>
 
                     </DownHeaderWrapper>
@@ -116,10 +116,6 @@ const DownHeader = () => {
                                 </DownHeaderAnchor>
                             </DownHeaderElement>
                         </DownHeaderElements>
-
-                        <DownHeaderCardButton>
-                            Корзина
-                        </DownHeaderCardButton>
 
                     </DownHeaderWrapper>
                 </DownHeaderBody>

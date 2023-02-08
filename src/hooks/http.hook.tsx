@@ -7,7 +7,7 @@ export const useHttp: any = () => {
         body = null,
         headers = {
             "Content-Type": "application/json"
-        },
+        }
     ) => {
 
         const response = await fetch(url, {method, body, headers});
