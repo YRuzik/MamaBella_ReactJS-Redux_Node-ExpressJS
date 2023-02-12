@@ -141,7 +141,6 @@ router.post(
                     last_name: req.body.last_name,
                     email: req.body.email,
                     password: hashPassword,
-                    address: req.body.address,
                     activation_link: activationLink
                 }
             )

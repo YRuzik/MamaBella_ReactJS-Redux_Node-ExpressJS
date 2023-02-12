@@ -3,114 +3,74 @@ import * as Yup from 'yup'
 import {
     FormContainer,
     FormCustom,
-    FormErrorMessage,
-    FormLabel,
-    FormLargeInput,
-    FormSmallInput,
-    FormWrapper
-} from "./FormAuth.style";
+    FormErrorMessage, FormInput,
+    FormLabel, FormSubmitButton
+} from "../formRegister/FormRegister.style";
+import {FormWrapAuth} from "./FormAuth.style";
+import {FC} from "react";
 
-const FormAuth = () => {
+const FormAuth: FC = () => {
     return (
         <Formik
             initialValues={
                 {
-                    first_name: '',
-                    last_name: '',
-                    username: '',
                     password: '',
-                    email: '',
-                    address: ''
+                    email: ''
                 }
             }
 
             validationSchema={Yup.object({
-                first_name: Yup.string()
-                    .required('Обязательное поле!'),
-                last_name: Yup.string()
-                    .required('Обязательное поле!'),
-                username: Yup.string()
-                    .min(2, 'Минимум 2 символа!')
-                    .required('Обязательное поле!'),
                 password: Yup.string()
                     .min(6, 'Длина пароля должна быть больше 6 символов!')
                     .required('Обязательное поле!'),
                 email: Yup.string()
                     .email('Некорректная эл. почта!')
                     .required('Обязательное поле!'),
-                address: Yup.string()
-                    .min(5, 'Некорректный адрес!')
-                    .required('Обязательное поле!'),
             })}
 
             onSubmit={
                 values => console.log(JSON.stringify(values))
             }>
+            {({
+                  isValid,
+                  dirty,
+                  isSubmitting,
+                  resetForm
+              }) => (
+                <FormCustom>
+                    <h1>Авторизация</h1>
+                    <FormWrapAuth>
 
-            <FormCustom>
-                <h1>Регистрация</h1>
-                <FormContainer>
-                    <FormLabel>Инициалы</FormLabel>
-                    <FormSmallInput
-                        name={"first_name"}
-                        className="form-control"
-                        id={"first_name"}
-                        placeholder={'Иван'}
-                    />
+                        <FormContainer>
+                            <FormInput
+                                name={"email"}
+                                className="form-control"
+                                id={"email"}
+                                placeholder="&nbsp;"
+                            />
+                            <FormLabel>Эл. почта</FormLabel>
+                            <FormErrorMessage name={'email'} component={'div'}/>
+                        </FormContainer>
 
-                    <FormSmallInput
-                        name={"last_name"}
-                        className="form-control"
-                        id={"last_name"}
-                        placeholder={'Иваныч'}
-                    />
-                </FormContainer>
+                        <FormContainer>
+                            <FormInput
+                                name={"password"}
+                                className="form-control"
+                                id={"password"}
+                                type={'password'}
+                                placeholder="&nbsp;"
+                            />
+                            <FormLabel>Пароль</FormLabel>
+                            <FormErrorMessage name={'password'} component={'div'}/>
+                        </FormContainer>
 
-                <FormContainer>
-                    <FormLabel>Логин</FormLabel>
-                    <FormLargeInput
-                        name={"username"}
-                        className="form-control"
-                        id={"username"}
-                        placeholder={'pizzaSlayer2004'}
-                    />
-                </FormContainer>
-
-                <FormContainer>
-                    <FormLabel>Пароль</FormLabel>
-                    <FormLargeInput
-                        name={"password"}
-                        className="form-control"
-                        id={"password"}
-                        type={'password'}
-                        placeholder={'******'}
-                    />
-                </FormContainer>
-
-                <FormContainer>
-                    <FormLabel>Эл. почта</FormLabel>
-                    <FormLargeInput
-                        name={"email"}
-                        className="form-control"
-                        id={"email"}
-                        placeholder={'superdestroyer@gmail.com'}
-                    />
-                </FormContainer>
-
-                <FormContainer>
-                    <FormLabel>Адрес</FormLabel>
-                    <FormWrapper>
-                        <FormLargeInput
-                            name={"address"}
-                            className="form-control"
-                            id={"address"}
-                            placeholder={'г. Владимир, ул. Парирум, д. 15, кв. 25'}
-                        />
-                        <FormErrorMessage name={'address'} component={'div'}/>
-                    </FormWrapper>
-                </FormContainer>
-            </FormCustom>
-
+                    </FormWrapAuth>
+                    <FormSubmitButton type={'submit'} disabled={!(isValid && dirty) || isSubmitting} onClick={() => {
+                        isSubmitting = true
+                        setTimeout(() => resetForm(), 500)
+                    }}>Войти</FormSubmitButton>
+                </FormCustom>
+            )}
         </Formik>
     )
 }

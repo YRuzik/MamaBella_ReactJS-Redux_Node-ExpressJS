@@ -6,9 +6,13 @@ import {
     WhiteTransitionDown,
     WhiteTransitionUp
 } from "./Slider.style";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 
-const SliderItem = ({thumbnail}: any) => {
+type GreetingProp = {
+    thumbnail: string
+}
+
+const SliderItem: FC<GreetingProp> = ({thumbnail}) => {
     return (
         <SliderItemBody>
             <SliderItemContent>
@@ -24,7 +28,7 @@ const SliderItem = ({thumbnail}: any) => {
     )
 }
 
-const Slider = () => {
+const Slider: FC = () => {
     const slideRef = useRef(null) as React.RefObject<HTMLDivElement>
 
     const [index, setIndex] = useState(0);

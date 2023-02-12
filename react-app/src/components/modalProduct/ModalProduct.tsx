@@ -11,21 +11,32 @@ import {
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import {useEffect, useRef, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import useOnClickOutside from "../../hooks/onClickOutside";
 import {useDispatch, useSelector} from "react-redux";
 import {Button, ButtonGroup} from "@mui/material";
 import {currentProductFetched} from "../../actions/actions";
+import {drinks, pizza, salads, snacks, souses} from "../../interfaces/ProductsInterfaces";
 
-const ModalProduct = ({isOpen, onClose, label}: any) => {
-    const {currentProduct}: any = useSelector(state => state)
+type GreetingProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    label: string;
+}
+
+type CurrentProducts = {
+    currentProduct: pizza[] | salads[] | drinks[] | snacks[] | souses[]
+}
+
+const ModalProduct: FC<GreetingProps> = ({isOpen, onClose, label}) => {
+    const {currentProduct} = useSelector((state: CurrentProducts) => state)
     const dispatch = useDispatch()
     const [thumbnailScale, setThumbnailScale] = useState(1)
 
     let index = 0
 
-    const pizza = 'Пицца',
-        drinks = 'Напитки'
+    const pizzas = 'Пицца',
+        drinkss = 'Напитки'
 
     const modalWindow = useRef() as React.MutableRefObject<HTMLDivElement>
     const onClickOutside = useOnClickOutside
@@ -78,13 +89,13 @@ const ModalProduct = ({isOpen, onClose, label}: any) => {
                                         {currentProduct[0].title}
                                     </ModalTitle>
                                     <ModalDetails>
-                                        {label === 'Пицца' ? currentProduct[index].dimension + ' см.' || null : null } {currentProduct[index].weight} гр.
+                                        {currentProduct[index].dimension ? currentProduct[index].dimension + ' см.' || null : null } {currentProduct[index].weight} гр.
                                     </ModalDetails>
                                     <ModalDescription>
                                         {currentProduct[0].description}
                                     </ModalDescription>
 
-                                    {label === pizza || label === drinks ?
+                                    {label === pizzas || label === drinkss ?
                                         <ButtonGroup fullWidth={true} size={'large'} color={'error'} variant="text" aria-label="outlined primary button group">
                                             <Button sx={{color: 'darkorange'}} onClick={() => setThumbnailScale(1)}>Маленькая</Button>
                                             <Button sx={{color: 'darkorange'}} onClick={() => setThumbnailScale(1.2)}>Средняя</Button>

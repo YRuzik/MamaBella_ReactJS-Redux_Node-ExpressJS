@@ -1,9 +1,8 @@
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import React, {useEffect, useRef, useState} from "react";
+import React, {FC, useRef, useState} from "react";
 import useOnClickOutside from "../../hooks/onClickOutside";
-import ModalAuth from "./ModalAuth";
 import {
     ModalAuthContainer,
     ModalAuthSlidingButton,
@@ -11,15 +10,24 @@ import {
     ModalAuthSlidingTitle
 } from "./ModalAuth.style";
 import {HeaderLogoTitle} from "../header/Header.style";
+import FormRegister from "../formRegister/FormRegister";
 import FormAuth from "../formAuth/FormAuth";
 
+type GreetingProps = {
+    isOpen: boolean;
+    onClose: () => void;
+}
 
-const ModalProduct = ({isOpen, onClose}: any) => {
+const ModalProduct: FC<GreetingProps> = ({isOpen, onClose}) => {
+    const [auth, setAuth] = useState(true)
 
     const modalAuthWindow = useRef() as React.MutableRefObject<HTMLDivElement>
     const onClickOutside = useOnClickOutside
 
-    onClickOutside(modalAuthWindow, () => onClose())
+    onClickOutside(modalAuthWindow, () => {
+        onClose()
+        setAuth(true)
+    })
 
     return (
         <>
@@ -38,7 +46,7 @@ const ModalProduct = ({isOpen, onClose}: any) => {
                 >
                     <Fade in={isOpen}>
                         <ModalAuthContainer ref={modalAuthWindow}>
-                            <ModalAuthSlidingContainer>
+                            <ModalAuthSlidingContainer xPosition={auth ? 0 : 150}>
                                 <ModalAuthSlidingTitle>
                                     <HeaderLogoTitle style={{color: "white"}}>
                                         <i className="fa-solid fa-pizza-slice"></i>
@@ -46,11 +54,11 @@ const ModalProduct = ({isOpen, onClose}: any) => {
                                         <br/>
                                     </HeaderLogoTitle>
                                 </ModalAuthSlidingTitle>
-                                <ModalAuthSlidingButton>
-                                    Зарегистрироваться
+                                <ModalAuthSlidingButton onClick={() => setAuth(!auth)}>
+                                    {auth ? 'Зарегистрироваться' : 'Войти в аккаунт'}
                                 </ModalAuthSlidingButton>
                             </ModalAuthSlidingContainer>
-                            <FormAuth/>
+                                {auth ? <FormAuth/> : <FormRegister/>}
                         </ModalAuthContainer>
                     </Fade>
                 </Modal>

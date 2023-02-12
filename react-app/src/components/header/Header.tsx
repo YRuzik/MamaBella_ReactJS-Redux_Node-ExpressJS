@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {FC, useState} from "react";
 import {
     HeaderAction,
     HeaderActions,
@@ -11,7 +11,7 @@ import {
 import DownHeader from "../downHeader/DownHeader";
 import ModalAuth from "../modalAuth/ModalAuth";
 
-const Header = () => {
+const Header: FC = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return(

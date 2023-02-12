@@ -7,12 +7,20 @@ import {
     OrderItemTitle, OrderItemWrapper
 } from "./OrderItem.style";
 import ModalProduct from "../modalProduct/ModalProduct";
-import {useState} from "react";
+import {FC, useState} from "react";
 import {useDispatch} from "react-redux";
 import {currentProductFetched} from "../../actions/actions";
 import mainService from "../../services/ProductService";
 
-const OrderItem = ({title, price, description, thumbnail, label}:any) => {
+type GreetingProps = {
+    title: string;
+    price: number;
+    description: string;
+    thumbnail: string;
+    label: string;
+}
+
+const OrderItem: FC<GreetingProps> = ({title, price, description, thumbnail, label}) => {
 
     let myFunc: () => void;
 

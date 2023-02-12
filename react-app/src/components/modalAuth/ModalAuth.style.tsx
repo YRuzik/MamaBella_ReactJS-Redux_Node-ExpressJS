@@ -23,6 +23,18 @@ export const ModalAuthSlidingContainer = styled.div`
   align-items: center!important;
   display: inline-flex;
   justify-content: center;
+  transition: transform 1s ease-in-out;
+  transform: ${(props: {xPosition: number}) => `translateX(${props.xPosition}%)`};
+  animation: slide-to-left 1s;
+  z-index: 1000000000000;
+  
+  @keyframes slide-to-left {
+    from {
+      transform: translateX(100%);
+    } to {
+      transform: translateX(0);
+      }
+  }
 `
 
 export const ModalAuthSlidingTitle = styled.div`

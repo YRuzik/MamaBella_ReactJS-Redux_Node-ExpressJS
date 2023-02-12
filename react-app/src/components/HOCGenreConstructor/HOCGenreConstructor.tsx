@@ -1,9 +1,14 @@
 import {Grid} from "@mui/material";
 import {ItemContainer} from "./HOCGenreConstructor.style";
 import OrderItem from "../orderItem/OrderItem";
-import ModalProduct from "../modalProduct/ModalProduct";
+import {FC} from "react";
 
-const HOCGenreConstructor = ({array, label}: any) => {
+type GreetingProps = {
+    array: object[];
+    label: string;
+}
+
+const HOCGenreConstructor: FC<GreetingProps> = ({array, label}) => {
 
     return (
         <>

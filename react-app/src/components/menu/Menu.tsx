@@ -1,13 +1,21 @@
 import {MenuBody, MenuHeader, MenuTitle, MenuWrapper} from "./Menu.style";
 import HOCGenreConstructor from "../HOCGenreConstructor/HOCGenreConstructor";
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useEffect} from "react";
+import {FC, useCallback, useEffect} from "react";
 import mainService from "../../services/ProductService";
 import {drinksFetched, pizzaFetched, saladsFetched, snacksFetched, sousesFetched} from "../../actions/actions";
-import {drinks, pizza} from "../../interfaces/ProductsInterfaces";
+import {drinks, pizza, salads, snacks, souses} from "../../interfaces/ProductsInterfaces";
 
-const Menu = () => {
-    const {pizza, salads, drinks, snacks, souses}: any = useSelector(state => state)
+type SelectorTypes = {
+    pizza: pizza[];
+    salads: salads[];
+    drinks: drinks[];
+    snacks: snacks[];
+    souses: souses[];
+}
+
+const Menu: FC = () => {
+    const {pizza, salads, drinks, snacks, souses} = useSelector((state: SelectorTypes) => state)
     const {getPizza, getSalads, getDrinks, getSnacks, getSouses} = mainService()
     const dispatch = useDispatch()
 
@@ -23,7 +31,7 @@ const Menu = () => {
         dispatch(pizzaFetched(myArray))
     })
 
-    const takeAllData = useCallback(async (): Promise<any> => {
+    const takeAllData = useCallback(async () => {
         await getPizza().then((data) => removeDuplicates(data.data))
         await getSalads().then((data) => dispatch(saladsFetched(data.data)))
         await getDrinks().then((data) => {

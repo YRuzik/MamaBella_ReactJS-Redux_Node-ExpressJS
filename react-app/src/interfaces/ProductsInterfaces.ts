@@ -1,6 +1,6 @@
 export interface initialStates {
     loadingStatus: string;
-    currentProduct: {};
+    currentProduct: pizza[] | salads[] | drinks[] | snacks[] | souses[];
     pizza: pizza[];
     salads: salads[];
     drinks: drinks[];
@@ -17,6 +17,7 @@ export interface pizza {
     price: number;
     pizza_id: string;
     dimension_id: string;
+    dimension: string;
 }
 
 export interface drinks {
@@ -28,6 +29,7 @@ export interface drinks {
     price: number;
     drinks_id: string;
     weight_id: string;
+    dimension: string;
 }
 
 export interface salads {
@@ -37,6 +39,7 @@ export interface salads {
     thumbnail: string;
     weight: number;
     price: number;
+    dimension: string;
 }
 
 export interface snacks {
@@ -46,6 +49,7 @@ export interface snacks {
     thumbnail: string;
     weight: number;
     price: number;
+    dimension: string;
 }
 
 export interface souses {
@@ -55,4 +59,5 @@ export interface souses {
     thumbnail: string;
     weight: number;
     price: number;
+    dimension: string;
 }
