@@ -2,9 +2,71 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# NOTE
+
+## This project is still in development!
+
+To run the server part of the application, you need your own Postgresql database (I hope in the future I will be able to post my own, for the convenience of testing the project)! The configuration for using the database is at the following. ways:
+
+### /node-server/DB/knexfile
+
+A dependency supporting .env files is also installed. For convenience, it is recommended to create such a file.
+In addition, you must specify your email data in the mail-service file.js for the operability of sending an email when registering for account confirmation.
+The mail-service file.js is on the way:
+
+### /node-server/service/mail-service.js
+
+I hope you enjoy this project :)
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### "node-server"
+
+### `npm run dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:8083/api](http://localhost:8083/api)
+
+#### Available end points:
+
+---
+
+- Products
+
+  - /pizza
+  - /pizza/pizzaID
+  - /salads
+  - /salads/saladsID
+  - /snacks
+  - /snacks/snacksID
+  - /drinks
+  - /drinks/drinksID
+  - /souses
+  - /souses/sousesID
+
+---
+
+- Users
+
+    - /registration
+    - /login
+    - /logout
+    - /refresh (refresh user token)
+    - /activate/:link (link for account activation)
+    - /snacksID
+    - /drinks
+    - /drinksID
+    - /souses
+    - /sousesID
+
+---
+
+- Test
+  - /users (only for authorized users)
+
+### "react-app"
 
 ### `npm start`
 
