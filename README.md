@@ -55,11 +55,6 @@ Open [http://localhost:8083/api](http://localhost:8083/api)
     - /logout
     - /refresh (refresh user token)
     - /activate/:link (link for account activation)
-    - /snacksID
-    - /drinks
-    - /drinksID
-    - /souses
-    - /sousesID
 
 ---
 
