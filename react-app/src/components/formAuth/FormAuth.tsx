@@ -8,8 +8,25 @@ import {
 } from "../formRegister/FormRegister.style";
 import {FormWrapAuth} from "./FormAuth.style";
 import {FC} from "react";
+import {useDispatch} from "react-redux";
+import AuthService from "../../services/AuthService";
+import {loginUser, setAuth} from "../../actions/actions";
 
 const FormAuth: FC = () => {
+    const dispatch = useDispatch()
+    const {login} = AuthService()
+
+    const handleSubmit = async (email: string, password: string) => {
+        try {
+            const response = await login(email, password)
+            localStorage.setItem('token', response.data.accessToken)
+            dispatch(loginUser(response.data.user))
+            dispatch(setAuth(true))
+        } catch (e) {
+            console.log(e.response?.data?.message)
+        }
+    }
+
     return (
         <Formik
             initialValues={
@@ -32,6 +49,7 @@ const FormAuth: FC = () => {
                 values => console.log(JSON.stringify(values))
             }>
             {({
+                  values,
                   isValid,
                   dirty,
                   isSubmitting,
@@ -65,8 +83,9 @@ const FormAuth: FC = () => {
                         </FormContainer>
 
                     </FormWrapAuth>
-                    <FormSubmitButton type={'submit'} disabled={!(isValid && dirty) || isSubmitting} onClick={() => {
+                    <FormSubmitButton type={'submit'} disabled={!(isValid && dirty) || isSubmitting} onClick={async () => {
                         isSubmitting = true
+                        await handleSubmit(values.email, values.password)
                         setTimeout(() => resetForm(), 500)
                     }}>Войти</FormSubmitButton>
                 </FormCustom>

@@ -1,3 +1,5 @@
+import {AuthResponse, IUser} from "./AuthInterfaces";
+
 export interface initialStates {
     loadingStatus: string;
     currentProduct: pizza[] | salads[] | drinks[] | snacks[] | souses[];
@@ -6,6 +8,8 @@ export interface initialStates {
     drinks: drinks[];
     snacks: snacks[];
     souses: souses[];
+    curUser: IUser;
+    isAuth: boolean
 }
 
 export interface pizza {

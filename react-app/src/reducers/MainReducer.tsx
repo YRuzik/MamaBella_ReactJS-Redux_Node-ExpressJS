@@ -1,4 +1,6 @@
 import {initialStates} from "../interfaces/ProductsInterfaces";
+import {number} from "yup";
+import {IUser} from "../interfaces/AuthInterfaces";
 
 const initialState: initialStates = {
     loadingStatus: 'loading',
@@ -7,7 +9,10 @@ const initialState: initialStates = {
     salads: [],
     drinks: [],
     snacks: [],
-    souses: []
+    souses: [],
+
+    curUser: {} as IUser,
+    isAuth: false
 }
 
 const MainReducer = (state = initialState, action: any) => {
@@ -58,6 +63,20 @@ const MainReducer = (state = initialState, action: any) => {
                 ...state,
                 loadingStatus: 'idle',
                 souses: action.payload
+            }
+
+        case 'USER_FETCHED':
+            return {
+                ...state,
+                loadingStatus: 'idle',
+                curUser: action.payload
+            }
+
+        case 'SET_AUTH':
+            return {
+                ...state,
+                loadingStatus: 'idle',
+                isAuth: action.payload
             }
         default: return state
     }

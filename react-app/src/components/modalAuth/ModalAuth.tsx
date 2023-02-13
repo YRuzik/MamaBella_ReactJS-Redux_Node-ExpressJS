@@ -16,9 +16,10 @@ import FormAuth from "../formAuth/FormAuth";
 type GreetingProps = {
     isOpen: boolean;
     onClose: () => void;
+    openSuccess: () => void;
 }
 
-const ModalProduct: FC<GreetingProps> = ({isOpen, onClose}) => {
+const ModalAuth: FC<GreetingProps> = ({isOpen, onClose, openSuccess}) => {
     const [auth, setAuth] = useState(true)
 
     const modalAuthWindow = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -58,7 +59,10 @@ const ModalProduct: FC<GreetingProps> = ({isOpen, onClose}) => {
                                     {auth ? 'Зарегистрироваться' : 'Войти в аккаунт'}
                                 </ModalAuthSlidingButton>
                             </ModalAuthSlidingContainer>
-                                {auth ? <FormAuth/> : <FormRegister/>}
+                                {auth ? <FormAuth/> : <FormRegister closeModal={() => onClose()} setSuccess={() => {
+                                    openSuccess()
+                                    setAuth(true)
+                                }}/>}
                         </ModalAuthContainer>
                     </Fade>
                 </Modal>
@@ -67,4 +71,4 @@ const ModalProduct: FC<GreetingProps> = ({isOpen, onClose}) => {
     );
 }
 
-export default ModalProduct
+export default ModalAuth

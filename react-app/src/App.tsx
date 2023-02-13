@@ -3,10 +3,23 @@ import Header from "./components/header/Header";
 import MainPage from "./pages/MainPage";
 import {BrowserRouter as Router, Routes} from "react-router-dom";
 import {Route} from "react-router-dom";
-import {FC} from "react";
-import SuccessRegisterModal from "./components/successRegisterModal/SuccessRegisterModal";
+import {FC, useEffect} from "react";
+import {checkAuth, loginUser, setAuth} from "./actions/actions";
+import {useDispatch} from "react-redux";
 
 const App: FC = () => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            checkAuth().then(data => {
+                dispatch(loginUser(data!.data.user))
+                dispatch(setAuth(true))
+            })
+        }
+    }, [])
+
   return (
       <Router>
             <div className="App">

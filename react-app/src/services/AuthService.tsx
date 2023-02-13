@@ -12,17 +12,16 @@ const AuthService = () => {
         first_name: string,
         last_name: string,
         email: string,
-        password: string,
-        address: string
+        password: string
     ): Promise<AxiosResponse<AuthResponse>> => {
-        return $api.post<AuthResponse>('/registration', {email, password, first_name, last_name, username, address})
+        return $api.post<AuthResponse>('/registration', {email, password, first_name, last_name, username})
     }
 
     const logout = async (): Promise<void> => {
         return $api.post('/logout', )
     }
 
-    return {login, registration}
+    return {login, registration, logout}
 }
 
 export default AuthService

@@ -1,4 +1,4 @@
-import {FC, useRef} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import useOnClickOutside from "../../hooks/onClickOutside";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
@@ -6,11 +6,11 @@ import Fade from "@mui/material/Fade";
 import {SRMContainer, SRMParagraph, SRMTitle} from "./SuccessRegisterModal.style";
 
 type GreetingProps = {
-    isOpen: boolean;
+    success: boolean;
     onClose: () => void;
 }
 
-const SuccessRegisterModal: FC<GreetingProps> = ({isOpen, onClose}) => {
+const SuccessRegisterModal: FC<GreetingProps> = ({success, onClose}) => {
 
     const modalWindow = useRef() as React.MutableRefObject<HTMLDivElement>
     const onClickOutside = useOnClickOutside
@@ -21,7 +21,7 @@ const SuccessRegisterModal: FC<GreetingProps> = ({isOpen, onClose}) => {
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
-                open={isOpen || false}
+                open={success || false}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -30,7 +30,7 @@ const SuccessRegisterModal: FC<GreetingProps> = ({isOpen, onClose}) => {
                 disableAutoFocus={true}
                 style={{zIndex: '100000000'}}
             >
-                <Fade in={isOpen}>
+                <Fade in={success}>
                     <SRMContainer ref={modalWindow}>
                         <SRMTitle>
                             Спасибо за регистрацию!
