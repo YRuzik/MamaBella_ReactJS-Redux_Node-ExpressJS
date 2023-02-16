@@ -18,7 +18,7 @@ const AuthService = () => {
     }
 
     const logout = async (): Promise<void> => {
-        return $api.post('/logout', )
+        return $api.post('/logout')
     }
 
     return {login, registration, logout}

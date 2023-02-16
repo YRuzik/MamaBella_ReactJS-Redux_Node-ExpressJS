@@ -14,6 +14,7 @@ import SuccessRegisterModal from "../successRegisterModal/SuccessRegisterModal";
 import {useDispatch, useSelector} from "react-redux";
 import {IUser} from "../../interfaces/AuthInterfaces";
 import {loginUser, logout, setAuth} from "../../actions/actions";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 type CurrentUser = {
     curUser: IUser;
@@ -22,6 +23,8 @@ type CurrentUser = {
 
 const Header: FC = () => {
     const {curUser, isAuth} = useSelector((state: CurrentUser) => state)
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const [isOpen, setIsOpen] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -38,16 +41,18 @@ const Header: FC = () => {
             <HeaderAll>
                 <HeaderBody>
                     <HeaderWrapper>
-                        <HeaderLogo>
-                            <HeaderLogoTitle id={'main'}>
-                                <i className="fa-solid fa-pizza-slice"></i>
-                                Mamma Bella
-                                <br/>
-                                <span style={{fontSize: '1rem', fontFamily: 'Montserrat Alternates'}}>
-                                   Пиццерия номер 1 в России!
-                                </span>
-                            </HeaderLogoTitle>
-                        </HeaderLogo>
+                        <Link to={'/'} style={{color: "white"}}>
+                            <HeaderLogo>
+                                <HeaderLogoTitle id={'main'}>
+                                    <i className="fa-solid fa-pizza-slice"></i>
+                                    Mamma Bella
+                                    <br/>
+                                    <span style={{fontSize: '1rem', fontFamily: 'Montserrat Alternates'}}>
+                                       Пиццерия номер 1 в России!
+                                    </span>
+                                </HeaderLogoTitle>
+                            </HeaderLogo>
+                        </Link>
 
                         <HeaderActions>
 
@@ -67,14 +72,17 @@ const Header: FC = () => {
 
                             {isAuth && curUser ?
                                 <>
-                                    <HeaderAction>
-                                        <div>
-                                            <i className="fa-regular fa-user fa-2xl"></i>
-                                        </div>
-                                        <div style={{lineHeight: '2rem'}}>{curUser.username}</div>
-                                    </HeaderAction>
+                                    <Link to={`/personal-account/${curUser.id}`} style={{color: 'white'}}>
+                                        <HeaderAction>
+                                            <div>
+                                                <i className="fa-regular fa-user fa-2xl"></i>
+                                            </div>
+                                            <div style={{lineHeight: '2rem'}}>{curUser.username}</div>
+                                        </HeaderAction>
+                                    </Link>
 
                                     <HeaderAction onClick={() => logout().then(() => {
+                                        navigate('/')
                                         dispatch(setAuth(false))
                                         dispatch(loginUser({} as IUser))
                                     })}>
@@ -96,7 +104,7 @@ const Header: FC = () => {
                         </HeaderActions>
                     </HeaderWrapper>
                 </HeaderBody>
-                <DownHeader/>
+                {location.pathname !== '/' ? null : <DownHeader/>}
             </HeaderAll>
         </>
     )

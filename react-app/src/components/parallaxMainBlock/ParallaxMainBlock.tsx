@@ -8,9 +8,17 @@ import {
     ParallaxMainContainer
 } from "./ParallaxMainBlock.style";
 import {scroller} from "../../helpers/ScrollerToCategory";
+import {useSelector} from "react-redux";
+import {IUser} from "../../interfaces/AuthInterfaces";
+import {Link} from "react-router-dom";
+
+type Auth = {
+    isAuth: boolean
+    curUser: IUser
+}
 
 const ParallaxMainBlock = () => {
-
+    const {isAuth, curUser} = useSelector((state: Auth) => state)
     return (
         <ParallaxMainContainer>
             <Parallax>
@@ -26,9 +34,17 @@ const ParallaxMainBlock = () => {
                     </MainDescription>
 
                     <MainActions>
-                        <MainButton>
-                            Войти
-                        </MainButton>
+                        {isAuth ?
+                            <Link to={`/personal-account/${curUser.id}`} style={{color: 'white'}}>
+                                <MainButton>
+                                    Аккаунт
+                                </MainButton>
+                            </Link>
+                            :
+                            <MainButton>
+                                Войти
+                            </MainButton>
+                        }
 
                         <MainButtonOutline onClick={(e) => scroller(e, 'menu')}>
                             Меню
