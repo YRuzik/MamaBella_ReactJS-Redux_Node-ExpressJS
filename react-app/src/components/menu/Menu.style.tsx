@@ -7,7 +7,7 @@ export const MenuBody = styled.div`
 `
 
 export const MenuWrapper = styled.div`
-  width: 65%;
+  width: 85%;
   margin: 0 auto;
   padding-top: 3rem;
 `

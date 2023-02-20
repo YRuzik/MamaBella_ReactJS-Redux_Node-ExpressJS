@@ -1,4 +1,4 @@
-import {drinks, pizza, salads, snacks, souses} from "../interfaces/ProductsInterfaces";
+import {drinks, pizza, products, salads, snacks, souses} from "../interfaces/ProductsInterfaces";
 import {AuthResponse, IUser} from "../interfaces/AuthInterfaces";
 import AuthService from "../services/AuthService";
 import {useDispatch} from "react-redux";
@@ -10,6 +10,13 @@ export const pizzaFetched = (pizza: pizza[]) => {
     return {
         type: 'PIZZA_FETCHED',
         payload: pizza
+    }
+}
+
+export const productsFetched = (products: products[]) => {
+    return {
+        type: 'PRODUCTS_FETCHED',
+        payload: products
     }
 }
 

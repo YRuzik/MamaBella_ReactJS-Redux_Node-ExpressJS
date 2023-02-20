@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {IUser} from "../../interfaces/AuthInterfaces";
 import {loginUser, logout, setAuth} from "../../actions/actions";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+import Cart from "../cart/Cart";
 
 type CurrentUser = {
     curUser: IUser;
@@ -27,6 +28,7 @@ const Header: FC = () => {
     const navigate = useNavigate()
 
     const [isOpen, setIsOpen] = useState(false)
+    const [cartOpen, setCartOpen] = useState(false)
     const [success, setSuccess] = useState(false)
     const dispatch = useDispatch()
 
@@ -36,6 +38,7 @@ const Header: FC = () => {
 
     return(
         <>
+            <Cart isOpen={cartOpen} onClose={() => setCartOpen(false)}/>
             <ModalAuth isOpen={isOpen} onClose={() => setIsOpen(false)} openSuccess={() => setSuccess(true)}/>
             <SuccessRegisterModal success={success} onClose={() => setSuccess(false)}/>
             <HeaderAll>
@@ -45,7 +48,7 @@ const Header: FC = () => {
                             <HeaderLogo>
                                 <HeaderLogoTitle id={'main'}>
                                     <i className="fa-solid fa-pizza-slice"></i>
-                                    Mamma Bella
+                                        Mamma Bella
                                     <br/>
                                     <span style={{fontSize: '1rem', fontFamily: 'Montserrat Alternates'}}>
                                        Пиццерия номер 1 в России!
@@ -56,7 +59,7 @@ const Header: FC = () => {
 
                         <HeaderActions>
 
-                            <HeaderAction>
+                            <HeaderAction onClick={() => setCartOpen(true)}>
                                 <div>
                                     <i className='fa-solid fa-basket-shopping fa-2xl'></i>
                                 </div>

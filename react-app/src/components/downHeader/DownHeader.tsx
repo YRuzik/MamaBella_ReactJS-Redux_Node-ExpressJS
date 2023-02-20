@@ -8,9 +8,11 @@ import {
 } from "./DownHeader.style";
 import React, {useEffect, useState} from "react";
 import {scroller} from "../../helpers/ScrollerToCategory";
+import Cart from "../cart/Cart";
 
 const DownHeader = () => {
     const [stickyNavbar, setStickyNavbar] = useState(false)
+    const [cartOpen, setCartOpen] = useState(false)
 
     const stickyChecker = () => {
         if (window.scrollY >= 150) {
@@ -21,11 +23,7 @@ const DownHeader = () => {
     }
 
     useEffect(() => {
-        if (window.scrollY >= 150) {
-            setStickyNavbar(true)
-        } else {
-            setStickyNavbar(false)
-        }
+        stickyChecker()
 
         window.addEventListener('scroll', stickyChecker)
 
@@ -37,6 +35,7 @@ const DownHeader = () => {
 
     return (
         <>
+            <Cart isOpen={cartOpen} onClose={() => setCartOpen(false)}/>
             {stickyNavbar ?
                 <DownHeaderBodySticky>
                     <DownHeaderWrapper>
@@ -75,7 +74,7 @@ const DownHeader = () => {
                             </DownHeaderElement>
                         </DownHeaderElements>
 
-                        <DownHeaderCardButton>
+                        <DownHeaderCardButton onClick={() => setCartOpen(true)}>
                             <i className='fa-solid fa-basket-shopping fa-2xl'></i>
                         </DownHeaderCardButton>
 

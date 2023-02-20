@@ -3,13 +3,21 @@ import {AuthResponse, IUser} from "./AuthInterfaces";
 export interface initialStates {
     loadingStatus: string;
     currentProduct: pizza[] | salads[] | drinks[] | snacks[] | souses[];
-    pizza: pizza[];
-    salads: salads[];
-    drinks: drinks[];
-    snacks: snacks[];
-    souses: souses[];
+    products: products[]
     curUser: IUser;
     isAuth: boolean
+}
+
+export interface products {
+    id: number;
+    title: string;
+    description: string;
+    thumbnail: string;
+    category: string;
+    weight: number;
+    size: number;
+    price: number;
+    product_id: number;
 }
 
 export interface pizza {

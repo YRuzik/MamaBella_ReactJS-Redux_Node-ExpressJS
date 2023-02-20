@@ -7,7 +7,6 @@ import {FC, useEffect} from "react";
 import {checkAuth, loginUser, setAuth} from "./actions/actions";
 import {useDispatch} from "react-redux";
 import PersonalAccountPage from "./pages/PersonalAccountPage";
-import Cart from "./components/cart/Cart";
 
 const App: FC = () => {
 
@@ -27,7 +26,6 @@ const App: FC = () => {
             <div className="App">
                 <Header/>
                 {/*<SuccessRegisterModal isOpen={true} onClose={() => console.log('s')}/>*/}
-                {/*<Cart/>*/}
                 <main>
                     <Routes>
 

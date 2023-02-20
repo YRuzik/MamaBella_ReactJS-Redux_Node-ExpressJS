@@ -1,52 +1,33 @@
 import {MenuBody, MenuHeader, MenuTitle, MenuWrapper} from "./Menu.style";
 import HOCGenreConstructor from "../HOCGenreConstructor/HOCGenreConstructor";
-import {useDispatch, useSelector} from "react-redux";
-import {FC, useCallback, useEffect} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import mainService from "../../services/ProductService";
-import {drinksFetched, pizzaFetched, saladsFetched, snacksFetched, sousesFetched} from "../../actions/actions";
-import {drinks, pizza, salads, snacks, souses} from "../../interfaces/ProductsInterfaces";
-
-type SelectorTypes = {
-    pizza: pizza[];
-    salads: salads[];
-    drinks: drinks[];
-    snacks: snacks[];
-    souses: souses[];
-}
+import {drinks, pizza, products, salads, snacks} from "../../interfaces/ProductsInterfaces";
+import {useDispatch} from "react-redux";
+import {productsFetched} from "../../actions/actions";
 
 const Menu: FC = () => {
-    const {pizza, salads, drinks, snacks, souses} = useSelector((state: SelectorTypes) => state)
-    const {getPizza, getSalads, getDrinks, getSnacks, getSouses} = mainService()
+    const [sortedProducts, setSortedProducts] = useState<products[]>([])
+    const {getProducts} = mainService()
     const dispatch = useDispatch()
 
-    const removeDuplicates = ((array: pizza[]) => {
-        const myArray: pizza[] = []
+    const deleteDuplicates = (inputArray: products[]) => {
         let title = ''
-        array.forEach((item) => {
-            if (item.title !== title) {
-                title = item.title
-                myArray.push(item)
+        const myArray: products[] = []
+        inputArray.forEach((obj) => {
+            if (title !== obj.title) {
+                title = obj.title
+                myArray.push(obj)
             }
         })
-        dispatch(pizzaFetched(myArray))
-    })
+        return myArray
+    }
 
     const takeAllData = useCallback(async () => {
-        await getPizza().then((data) => removeDuplicates(data.data))
-        await getSalads().then((data) => dispatch(saladsFetched(data.data)))
-        await getDrinks().then((data) => {
-            const myArray: drinks[] = []
-            let title = ''
-            data.data.forEach((item) => {
-                if (item.title !== title) {
-                    title = item.title
-                    myArray.push(item)
-                }
-            })
-            dispatch(drinksFetched(myArray))
+        getProducts().then((data) => {
+            dispatch(productsFetched(data.data))
+            setSortedProducts(deleteDuplicates(data.data))
         })
-        await getSnacks().then((data) => dispatch(snacksFetched(data.data)))
-        await getSouses().then((data) => dispatch(sousesFetched(data.data)))
     }, [])
 
     useEffect(() => {
@@ -65,19 +46,19 @@ const Menu: FC = () => {
                     </MenuTitle>
                 </MenuHeader>
                 <div id={'pizza'} style={{scrollMargin: '80px'}}>
-                    <HOCGenreConstructor array={pizza} label={'Пицца'}/>
+                    <HOCGenreConstructor array={sortedProducts} label={'Пицца'}/>
                 </div>
                 <div id={'salads'} style={{scrollMargin: '80px'}}>
-                    <HOCGenreConstructor array={salads} label={'Салаты'}/>
+                    <HOCGenreConstructor array={sortedProducts} label={'Салаты'}/>
                 </div>
                 <div id={'snacks'} style={{scrollMargin: '80px'}}>
-                    <HOCGenreConstructor array={snacks} label={'Закуски'}/>
+                    <HOCGenreConstructor array={sortedProducts} label={'Закуски'}/>
                 </div>
                 <div id={'drinks'} style={{scrollMargin: '80px'}}>
-                    <HOCGenreConstructor array={drinks} label={'Напитки'}/>
+                    <HOCGenreConstructor array={sortedProducts} label={'Напитки'}/>
                 </div>
                 <div id={'sauces'} style={{scrollMargin: '80px'}}>
-                    <HOCGenreConstructor array={souses} label={'Соусы'}/>
+                    <HOCGenreConstructor array={sortedProducts} label={'Соусы'}/>
                 </div>
             </MenuWrapper>
         </MenuBody>

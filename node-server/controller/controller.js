@@ -17,88 +17,15 @@ const authMiddleware = require('../middlewares/auth-middleware')
 
 //all-user-routes
 
-router.get("/pizza", async (req, res) => {
-    const pizzaList = await knex.withSchema("public")
+router.get("/products", async (req, res) => {
+    const products = await knex.withSchema("public")
         .select('*')
-        .from('pizza')
-        .joinRaw("left join price_pizza as price ON price.pizza_id = pizza.id", [])
-    res.send(pizzaList)
-});
+        .from('products')
+        .leftJoin('categories', 'products.category', 'categories.id')
+        .leftJoin('prices', 'products.id', 'prices.product_id')
 
-router.get("/pizza/:pizzaTitle", async (req, res) => {
-    let myTitle = req.params.pizzaTitle;
-    const productList = await knex
-        .select('*')
-        .from('pizza')
-        .joinRaw("inner join price_pizza as price on price.pizza_id = pizza.id inner join dimensions as dimen on dimen.id = price.dimension_id")
-        .where('title', myTitle)
-    res.send(productList)
-});
 
-router.get("/salads", async (req, res) => {
-    const saladsList = await knex.withSchema("public")
-        .select('*')
-        .from('salads')
-    res.send(saladsList)
-});
-
-router.get("/salads/:saladsTitle", async (req, res) => {
-    let myTitle = req.params.saladsTitle;
-    const productList = await knex
-        .select('*')
-        .from('salads')
-        .where('title', myTitle)
-    res.send(productList)
-});
-
-router.get("/snacks", async (req, res) => {
-    const snacksList = await knex.withSchema("public")
-        .select('*')
-        .from('snacks')
-    res.send(snacksList)
-});
-
-router.get("/snacks/:snacksTitle", async (req, res) => {
-    let myTitle = req.params.snacksTitle;
-    const productList = await knex
-        .select('*')
-        .from('snacks')
-        .where('title', myTitle)
-    res.send(productList)
-});
-
-router.get("/drinks", async (req, res) => {
-    const drinksList = await knex.withSchema("public")
-        .select('*')
-        .from('drinks')
-        .joinRaw("left join price_drinks as price ON price.drinks_id = drinks.id", [])
-    res.send(drinksList)
-});
-
-router.get("/drinks/:drinksTitle", async (req, res) => {
-    let myTitle = req.params.drinksTitle;
-    const productList = await knex
-        .select('*')
-        .from('drinks')
-        .joinRaw("left join price_drinks as price ON price.drinks_id = drinks.id inner join weight on weight.id = price.weight_id")
-        .where('title', myTitle)
-    res.send(productList)
-});
-
-router.get("/souses", async (req, res) => {
-    const sousesList = await knex.withSchema("public")
-        .select('*')
-        .from('souses')
-    res.send(sousesList)
-});
-
-router.get("/souses/:sousesTitle", async (req, res) => {
-    let myTitle = req.params.sousesTitle;
-    const productList = await knex
-        .select('*')
-        .from('souses')
-        .where('title', myTitle)
-    res.send(productList)
+    res.send(products)
 });
 
 //authorization-routes
@@ -263,6 +190,24 @@ router.get('/users', authMiddleware, async (req, res, next) => {
         next(e)
     }
 
+})
+
+//cart-endpoints
+
+router.post('/cart', authMiddleware, async (req, res, next) => {
+    try {
+        const cart = await knex
+            .select('*')
+            .from('cart')
+            .where('user_id', req.body.id)
+
+        if (!cart[0])
+            await knex('cart').insert({user_id: req.body.id})
+
+        res.send(cart)
+    } catch (e) {
+        next(e)
+    }
 })
 
 module.exports = router;

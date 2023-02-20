@@ -47,6 +47,39 @@ export const CartClear = styled.div`
 export const CartContent = styled.div`
   overflow-y: auto;
   width: 100%;
-  height: 80%;
+  height: 85%;
   overflow-x: hidden;
+  
+  &::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,.15);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track{
+    background: transparent;
+  }
+`
+
+export const CartButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
+  width: 100%;
+`
+
+export const CartButton = styled.button`
+  font-size: 1.25rem;
+  padding: 1rem 5rem 1rem 5rem;
+  background: darkorange;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+  
+  &:hover {
+    opacity: 0.8;
+  }
 `
