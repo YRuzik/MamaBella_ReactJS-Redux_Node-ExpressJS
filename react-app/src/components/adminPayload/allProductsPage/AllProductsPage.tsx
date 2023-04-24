@@ -11,12 +11,9 @@ import {
     UserTableContainer,
     UserTableWrapper
 } from "../userTable/UserTable.style";
-import {UserTableItem} from "../userTable/UserTable";
 import {products} from "../../../interfaces/ProductsInterfaces";
-import {IUser} from "../../../interfaces/AuthInterfaces";
 import {useNavigate} from "react-router-dom";
 import mainService from "../../../services/ProductService";
-import {UAContainer} from "../userAddresses/UserAddresses.style";
 
 type prods = {
     products: products[]
