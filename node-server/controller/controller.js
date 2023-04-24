@@ -17,15 +17,36 @@ const authMiddleware = require('../middlewares/auth-middleware')
 
 //all-user-routes
 
-router.get("/products", async (req, res) => {
-    const products = await knex.withSchema("public")
-        .select('*')
-        .from('products')
-        .leftJoin('categories', 'products.category', 'categories.id')
-        .leftJoin('prices', 'products.id', 'prices.product_id')
+router.get("/products", async (req, res, next) => {
+    try {
+        const products = await knex.withSchema("public")
+            .select('*')
+            .from('products')
+            .leftJoin('categories', 'products.category', 'categories.id')
+            .leftJoin('prices', 'products.id', 'prices.product_id')
 
 
-    res.send(products)
+        res.send(products)
+    } catch (e) {
+        next(e)
+    }
+});
+
+router.get("/products/:id", async (req, res, next) => {
+    try {
+        const productID = req.params.id
+        const product = await knex.withSchema("public")
+            .select('*')
+            .from('products')
+            .leftJoin('categories', 'products.category', 'categories.id')
+            .leftJoin('prices', 'products.id', 'prices.product_id')
+            .where('product_id', productID)
+        console.log(product)
+
+        res.send(product)
+    } catch (e) {
+        next(e)
+    }
 });
 
 //authorization-routes
@@ -85,6 +106,14 @@ router.post(
 
             res.cookie('refreshToken', tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             res.send({...tokens, user: userdto})
+
+            const allUsers = await knex.select('*').from('users');
+            await knex('user_analytics').insert(
+                {
+                    length: allUsers.length
+                }
+            )
+
     } catch (e) {
         next(e)
     }
@@ -179,6 +208,20 @@ router.get('/refresh', async (req, res, next) => {
 
 //test-endpoints
 
+router.get('/users/:id', authMiddleware, async (req, res, next) => {
+    try {
+        const userID = req.params.id;
+        const user = await knex
+            .select('*')
+            .from('users')
+            .where('id', userID)
+
+        res.send(user)
+    } catch (e) {
+        next(e)
+    }
+})
+
 router.get('/users', authMiddleware, async (req, res, next) => {
     try {
         const users = await knex
@@ -191,6 +234,89 @@ router.get('/users', authMiddleware, async (req, res, next) => {
     }
 
 })
+
+router.get('/analytics', authMiddleware, async (req, res, next) => {
+    try {
+        const usersAnalytics = await knex
+            .select('*')
+            .from('user_analytics');
+
+        res.send(usersAnalytics)
+    } catch (e) {
+        next(e)
+    }
+
+})
+
+router.get('/addresses/:id', authMiddleware, async (req, res, next) => {
+    try {
+        const userID = req.params.id;
+        const userAddresses = await knex
+            .select('*')
+            .from('addresses')
+            .where('user_id', userID)
+
+        res.send(userAddresses)
+    } catch (e) {
+        next(e)
+    }
+
+})
+
+router.post('/addresses', authMiddleware, async (req, res, next) => {
+    try {
+        await knex('addresses')
+            .insert({
+                address: req.body.address,
+                user_id: req.body.user_id
+            })
+
+        res.send('Адрес успешно добавлен')
+    } catch (e) {
+        next(e)
+    }
+
+})
+
+router.delete('/addresses/:id', authMiddleware, async (req, res, next) => {
+    try {
+        const ID = req.params.id;
+
+        await knex('addresses')
+            .where('id', ID)
+            .delete()
+
+        res.send('Адрес удален')
+    } catch (e) {
+        next(e)
+    }
+})
+
+router.post('/delete/user/:id', authMiddleware, async (req, res, next) => {
+    try {
+        const userID = req.params.id;
+
+        await knex('user_tokens')
+            .where('user_id', userID)
+            .delete()
+
+        await knex('users')
+            .where('id', userID)
+            .delete()
+
+        res.send('Пользователь удален')
+    } catch (e) {
+        next(e)
+    }
+
+    const allUsers = await knex.select('*').from('users');
+    await knex('user_analytics').insert(
+        {
+            length: allUsers.length
+        }
+    )
+})
+
 
 //cart-endpoints
 

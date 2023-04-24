@@ -8,7 +8,11 @@ const ProductService = () => {
         return $api.get<products[]>('/products')
     }
 
-    return {getProducts}
+    const getProductsID = async (id: number | string): Promise<AxiosResponse<products[]>> => {
+        return $api.get<products[]>(`/products/${id}`)
+    }
+
+    return {getProducts, getProductsID}
 }
 
 export default ProductService

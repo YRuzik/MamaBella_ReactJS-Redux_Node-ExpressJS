@@ -1,14 +1,31 @@
 import './App.css';
-import Header from "./components/header/Header";
+import Header from "./components/mainPayload/header/Header";
 import MainPage from "./pages/MainPage";
 import {BrowserRouter as Router, Routes} from "react-router-dom";
 import {Route} from "react-router-dom";
 import {FC, useEffect} from "react";
 import {checkAuth, loginUser, setAuth} from "./actions/actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import PersonalAccountPage from "./pages/PersonalAccountPage";
+import NewsPage from "./pages/NewsPage";
+import NewsPageID from "./pages/NewsPageID";
+import RegistrationSuccess from "./pages/RegistrationSuccess";
+import Toaster from "./components/mainPayload/mainPage/toaster/Toaster";
+import AdminPage, {Container} from "./components/adminPayload/adminPage/AdminPage";
+import {AdminLayout} from "./components/adminPayload/userTable/UserTable.style";
+import Sidebar from "./components/adminPayload/sidebar/Sidebar";
+import AllUsersPage from "./components/adminPayload/allUsersPage/AllUsersPage";
+import UserByID from "./components/adminPayload/userByID/UserByID";
+import AllProductsPage from "./components/adminPayload/allProductsPage/AllProductsPage";
+import AllNewsPage from "./components/adminPayload/allNewsPage/AllNewsPage";
+
+
+type layoutCheck = {
+    adminLayout: boolean;
+}
 
 const App: FC = () => {
+    const {adminLayout} = useSelector((state: layoutCheck) => state)
 
     const dispatch = useDispatch()
 
@@ -24,9 +41,9 @@ const App: FC = () => {
   return (
       <Router>
             <div className="App">
-                <Header/>
-                {/*<SuccessRegisterModal isOpen={true} onClose={() => console.log('s')}/>*/}
+
                 <main>
+                    {adminLayout ? null : <Header/>}
                     <Routes>
 
                         <Route path={'/'}>
@@ -35,10 +52,39 @@ const App: FC = () => {
 
                             <Route path={'personal-account/:id'} element={<PersonalAccountPage/>}/>
 
+                            <Route path={'news'} element={<NewsPage/>}/>
+
+                            <Route path={'news/:id'} element={<NewsPageID/>}/>
+
+                            <Route path={'register-success'} element={<RegistrationSuccess/>}/>
+
                         </Route>
 
                     </Routes>
                 </main>
+                <AdminLayout>
+                    <Sidebar/>
+                    <Container>
+                    <Routes>
+
+
+                        <Route path={'/admin'}>
+
+                            <Route index element={<AdminPage/>}/>
+
+                            <Route path={'users'} element={<AllUsersPage/>}/>
+
+                            <Route path={'users/:id'} element={<UserByID/>}/>
+
+                            <Route path={'products'} element={<AllProductsPage/>}/>
+
+                            <Route path={'news'} element={<AllNewsPage/>}/>
+
+                        </Route>
+
+                    </Routes>
+                    </Container>
+                </AdminLayout>
             </div>
       </Router>
   );
