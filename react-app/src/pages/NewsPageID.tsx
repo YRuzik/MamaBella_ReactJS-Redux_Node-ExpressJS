@@ -1,4 +1,7 @@
-import {PersonalAccountContainer} from "../components/mainPayload/personalAccountPage/PersonalAccountPage.style";
+import {
+    PersonalAccountContainer,
+    PersonalAccountLayout
+} from "../components/mainPayload/personalAccountPage/PersonalAccountPage.style";
 import NewsInfo from "../components/mainPayload/newsPage/newsInfo/NewsInfo";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
@@ -13,9 +16,11 @@ const NewsPageID = () => {
     }, [])
 
     return (
-        <PersonalAccountContainer>
-            <NewsInfo/>
-        </PersonalAccountContainer>
+        <PersonalAccountLayout>
+            <PersonalAccountContainer>
+                <NewsInfo/>
+            </PersonalAccountContainer>
+        </PersonalAccountLayout>
     )
 }
 

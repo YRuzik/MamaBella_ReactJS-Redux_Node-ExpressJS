@@ -17,6 +17,11 @@ const initialState: initialStates = {
 
 const MainReducer = (state = initialState, action: any) => {
     switch (action.type) {
+        case 'FETCHING':
+            return {
+                ...state,
+                loadingStatus: action.payload
+            }
         case 'USERS_FETCHED':
             return {
                 ...state,

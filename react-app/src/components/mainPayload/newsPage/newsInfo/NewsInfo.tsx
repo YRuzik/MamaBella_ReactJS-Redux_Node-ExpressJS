@@ -1,25 +1,32 @@
 import {NewsInfoBody, NewsInfoContainer, NewsInfoText, NewsInfoThumbnail, NewsInfoTitle} from "./NewsInfo.style";
-import {FC} from "react";
-
-type GreetingsProps = {
-    thumbnail: string
-}
+import {FC, useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import UserService from "../../../../services/UserService";
+import {INews} from "../../../../interfaces/AuthInterfaces";
 
 const NewsInfo: FC = () => {
-    const text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum cumque explicabo necessitatibus veniam vitae! Adipisci autem, cum ipsam non quaerat repellendus. Praesentium, sunt, suscipit! Accusamus autem dignissimos distinctio doloribus eaque, facilis fugit ipsum modi, nihil nobis numquam porro provident reiciendis, rerum suscipit temporibus vitae voluptates voluptatibus? Aliquid commodi eligendi excepturi magnam, nobis tempora tempore. Ab corporis cupiditate debitis esse, fugiat ipsa iusto obcaecati odit, porro reprehenderit sapiente similique soluta temporibus veritatis voluptatem! Deserunt eius laborum laudantium libero minima mollitia voluptate. A animi autem beatae deleniti dicta, eum harum illo iure modi natus nulla odio quas recusandae, vitae, voluptatibus? Debitis, quibusdam?'
+    const {id} = useParams()
+    const {takeNewsByID} = UserService()
+    const [news, setNews] = useState<INews>()
+
+    useEffect(() => {
+        if (id !== null)
+            takeNewsByID(id!).then((data) => setNews(data.data[0]))
+    }, [])
 
     return (
+
         <NewsInfoContainer>
-            <NewsInfoThumbnail src={'https://sushi-pizza-burger.ru/wp-content/uploads/2022/04/domashnyaya-1536x1024.jpg'}/>
+            <NewsInfoThumbnail src={news?.thumbnail}/>
             <NewsInfoBody>
                 <hr/>
                 <NewsInfoTitle>
-                    Супер Новость
+                    {news?.title}
                 </NewsInfoTitle>
                 <hr/>
                 <NewsInfoText>
                     <p>
-                        {text}
+                        {news?.description}
                     </p>
                 </NewsInfoText>
             </NewsInfoBody>

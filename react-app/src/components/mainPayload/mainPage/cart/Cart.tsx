@@ -21,6 +21,7 @@ import {IUser} from "../../../../interfaces/AuthInterfaces";
 import OrderItem from "../orderItem/OrderItem";
 import {cartProduct} from "../../../../interfaces/ProductsInterfaces";
 import {addToCart, removeCart} from "../../../../actions/actions";
+import {useNavigate} from "react-router-dom";
 
 type GreetingProps = {
     isOpen: boolean;
@@ -37,7 +38,7 @@ const Cart: FC<GreetingProps> = ({isOpen, onClose}) => {
     const {curUser, isAuth, cart} = useSelector((state: CurrentUser) => state)
     const sideBar = useRef() as React.MutableRefObject<HTMLInputElement>
     const onClickOutside = useOnClickOutside
-    const {getCart} = CartService()
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -90,7 +91,10 @@ const Cart: FC<GreetingProps> = ({isOpen, onClose}) => {
                                         </CartContent>
                                         {sum !== 0 ?
                                             <CartButtonContainer>
-                                                <CartButton>
+                                                <CartButton onClick={() => {
+                                                    onClose()
+                                                    navigate('/oplata')
+                                                }}>
                                                     Заказать за {sum} руб.
                                                 </CartButton>
                                             </CartButtonContainer>

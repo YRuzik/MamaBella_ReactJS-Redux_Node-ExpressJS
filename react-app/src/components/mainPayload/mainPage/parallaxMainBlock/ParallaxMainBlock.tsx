@@ -11,6 +11,9 @@ import {scroller} from "../../../../helpers/ScrollerToCategory";
 import {useSelector} from "react-redux";
 import {IUser} from "../../../../interfaces/AuthInterfaces";
 import {Link} from "react-router-dom";
+import ModalAuth from "../modalAuth/ModalAuth";
+import {useState} from "react";
+import SuccessRegisterModal from "../successRegisterModal/SuccessRegisterModal";
 
 type Auth = {
     isAuth: boolean
@@ -19,7 +22,11 @@ type Auth = {
 
 const ParallaxMainBlock = () => {
     const {isAuth, curUser} = useSelector((state: Auth) => state)
+    const [isOpen, setIsOpen] = useState(false)
+    const [success, setSuccess] = useState(false)
     return (
+        <><ModalAuth isOpen={isOpen} onClose={() => setIsOpen(false)} openSuccess={() => setSuccess(true)}/>
+            <SuccessRegisterModal success={success} onClose={() => setSuccess(false)}/>
         <ParallaxMainContainer>
             <Parallax>
                 <ParallaxContent>
@@ -41,7 +48,7 @@ const ParallaxMainBlock = () => {
                                 </MainButton>
                             </Link>
                             :
-                            <MainButton>
+                            <MainButton onClick={() => setIsOpen(true)}>
                                 Войти
                             </MainButton>
                         }
@@ -54,6 +61,7 @@ const ParallaxMainBlock = () => {
                 </ParallaxContent>
             </Parallax>
         </ParallaxMainContainer>
+        </>
     )
 }
 

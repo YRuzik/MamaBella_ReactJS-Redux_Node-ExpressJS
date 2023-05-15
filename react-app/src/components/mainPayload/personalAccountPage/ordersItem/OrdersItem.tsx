@@ -5,39 +5,66 @@ import {
     OrdersItemHeader, OrdersItemStatus,
     OrdersItemPrice, OrdersItemAddress, OrdersItemMore, OrdersItemReview
 } from "./OrdersItem.style";
+import {FC, useState} from "react";
+import {OplataProducts} from "../../oplataPage/oplata/Oplata.style";
+import {ProductItem} from "../../oplataPage/oplata/Oplata";
 
-const OrdersItem = () => {
+type props = {
+    address: string;
+    status: string;
+    full_price: string;
+    first_name: string;
+    last_name: string;
+    products: [];
+    date: string;
+}
+
+const OrdersItem: FC<props> = ({address, status, full_price, first_name, last_name, products, date}) => {
+    const time = new Date(date).toLocaleString()
+    const [switcher, setSwitcher] = useState(false)
+    const [prods, setProds] = useState(products)
         return (
             <OrdersItemContainer>
 
                 <OrdersItemHeader>
 
-                    <OrdersItemStatus>
-                        Доставлен
+                    <OrdersItemStatus style={status === 'Собираем заказ' ? {backgroundColor: 'yellowgreen'} : {backgroundColor: 'forestgreen'}}>
+                        {status}
                     </OrdersItemStatus>
 
                     <OrdersItemPrice>
-                        1500 руб.
+                        {full_price} руб.
                     </OrdersItemPrice>
 
                 </OrdersItemHeader>
 
                 <OrdersItemData>
-                    04.03.2023 <span style={{color: "gray"}}>13:40</span>
+                    {time.slice(0, 10)} <span style={{color: "gray"}}>{time.slice(11, 17)}</span>
                 </OrdersItemData>
 
                 <OrdersItemAddress>
-                    Доставка: Владимир, ул.Усти-на-Лабе, д. 3, кв. 5, п. 3, эт. 3
+                    Доставка: {address}
                 </OrdersItemAddress>
 
                 <OrdersItemDetails>
-                    <OrdersItemMore>
+                    <OrdersItemMore onClick={() => setSwitcher(!switcher)}>
                         ПОДРОБНЕЕ
                     </OrdersItemMore>
                     <OrdersItemReview>
-                        Оценить
+
                     </OrdersItemReview>
                 </OrdersItemDetails>
+                {switcher ?
+                    <div style={{textAlign: 'center', width: '100%'}}>
+                        <h2 style={{paddingTop: '1rem'}}>Товары</h2>
+                        <OplataProducts>
+                            {prods.map(({...props}: any, index: number) => (
+                                <ProductItem {...props} key={index}/>
+                            ))}
+                        </OplataProducts>
+                    </div>
+                    : null
+                }
 
                 <hr/>
             </OrdersItemContainer>

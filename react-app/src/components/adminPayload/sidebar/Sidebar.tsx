@@ -13,6 +13,8 @@ const Sidebar = () => {
 
             <SidebarItem onClick={() => navigate('/admin/news')}><i className='fa fa-clone'></i></SidebarItem>
 
+            <SidebarItem onClick={() => navigate('/')}><i className='fa fa-e'></i></SidebarItem>
+
         </SidebarContainer>
     )
 }

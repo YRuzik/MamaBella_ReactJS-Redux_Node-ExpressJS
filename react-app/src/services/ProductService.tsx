@@ -8,11 +8,17 @@ const ProductService = () => {
         return $api.get<products[]>('/products')
     }
 
-    const getProductsID = async (id: number | string): Promise<AxiosResponse<products[]>> => {
+    const getProductsID = async (id: string | number): Promise<AxiosResponse<products[]>> => {
         return $api.get<products[]>(`/products/${id}`)
     }
 
-    return {getProducts, getProductsID}
+    const changeProductsID = async (id: string | number, data: object): Promise<AxiosResponse<void>> => {
+        return $api.post<void>(`/products_change/${id}`, data)
+    }
+
+
+
+    return {getProducts, getProductsID, changeProductsID}
 }
 
 export default ProductService

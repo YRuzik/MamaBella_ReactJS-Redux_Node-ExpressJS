@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import UserService from "../../../services/UserService";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {IUser} from "../../../interfaces/AuthInterfaces";
 import {setAdminLayout} from "../../../actions/actions";
 import {useDispatch} from "react-redux";
@@ -17,19 +17,28 @@ import {TBodyTD} from "../userTable/UserTable.style";
 import LabelBackButton from "../../labelBackButton/LabelBackButton";
 import {UAContainer} from "../userAddresses/UserAddresses.style";
 import UserAddresses from "../userAddresses/UserAddresses";
+import UserOrders from "../userOrders/UserOrders";
 
 const UserByID = () => {
     const {id} = useParams<string>()
 
-    const {takeUserByID, deleteUserByID} = UserService();
+    const {takeUserByID, deleteUserByID, changeRole} = UserService();
     const [curUser, setCurUser] = useState<IUser>();
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const switchRole = () => {
+        if (id !== undefined && curUser?.admin !== undefined)
+        changeRole(id, !curUser?.admin)
+    };
+
     useEffect(() => {
         dispatch(setAdminLayout(true))
-        if (id != undefined) takeUserByID(id).then((data) => setCurUser(data.data[0]))
     }, [])
+
+    useEffect(() => {
+        if (id != undefined) takeUserByID(id).then((data) => setCurUser(data.data[0]))
+    }, [switchRole])
 
     return (
         <UBIContainer>
@@ -50,12 +59,12 @@ const UserByID = () => {
                     <h3><UBILabel>Электронная почта:</UBILabel> {curUser?.email}</h3>
                     <h3>
                         <UBILabel>Активация:</UBILabel> <span style={curUser?.activated ? {color: 'green', fontSize: '18px'} : {color: 'red'}}>{curUser?.activated ? '✓' : '×'}</span></h3>
-                    <h3>
-                        <UBILabel>Администратор:</UBILabel> <span style={curUser?.admin ? {color: 'green', fontSize: '18px'} : {color: 'red'}}>{curUser?.admin ? '✓' : '×'}</span></h3>
+                    <div style={{cursor: 'pointer'}} onClick={() => switchRole()}> <h3><UBILabel>Администратор:</UBILabel> <span style={curUser?.admin ? {color: 'green', fontSize: '18px'} : {color: 'red'}}>{curUser?.admin ? '✓' : '×'}</span></h3></div>
                 </UBIPersonalData>
             </UBIFlex>
             <UBIFlex style={{border: 'none', boxShadow: 'none', justifyContent: 'space-between', padding: '1rem 0 0 0'}}>
                 <UserAddresses/>
+                <UserOrders/>
             </UBIFlex>
         </UBIContainer>
     )

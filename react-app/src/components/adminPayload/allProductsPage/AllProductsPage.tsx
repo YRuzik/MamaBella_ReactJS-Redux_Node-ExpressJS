@@ -1,7 +1,7 @@
 import LabelBackButton from "../../labelBackButton/LabelBackButton";
 import {useDispatch, useSelector} from "react-redux";
 import {FC, useCallback, useEffect, useState} from "react";
-import {productsFetched, setAdminLayout} from "../../../actions/actions";
+import {productsFetched, setAdminLayout, setFetching} from "../../../actions/actions";
 import {
     TBody,
     TBodyTD,
@@ -14,12 +14,18 @@ import {
 import {products} from "../../../interfaces/ProductsInterfaces";
 import {useNavigate} from "react-router-dom";
 import mainService from "../../../services/ProductService";
+import Loader from "../../loader/Loader";
 
 type prods = {
     products: products[]
 }
 
+export type load = {
+    loadingStatus: string;
+}
+
 const AllProductsPage = () => {
+    const {loadingStatus} = useSelector((state: load) => state)
     const [sortedProducts, setSortedProducts] = useState<products[]>([])
     const {getProducts} = mainService()
     const dispatch = useDispatch()
@@ -33,11 +39,13 @@ const AllProductsPage = () => {
                 myArray.push(obj)
             }
         })
+        myArray.sort((a, b) => Number(a.id) - Number(b.id))
         return myArray
     }
 
     const takeAllData = useCallback(async () => {
         dispatch(setAdminLayout(true))
+        dispatch(setFetching())
         getProducts().then((data) => {
             dispatch(productsFetched(data.data))
             setSortedProducts(deleteDuplicates(data.data))
@@ -48,6 +56,9 @@ const AllProductsPage = () => {
         takeAllData()
     }, [])
 
+    if (loadingStatus === 'loading') {
+        return <Loader/>
+    } else
     return (
         <>
             <LabelBackButton label={'Все продукты'}/>
@@ -90,7 +101,7 @@ export const ProductsTableItem: FC<products> = ({id, product_id, price, descript
     }
 
     return (
-        <TBodyTR onClick={() => navigate(`/admin/users/${id}`)}>
+        <TBodyTR onClick={() => navigate(`/admin/products/${product_id}`)}>
             <TBodyTD style={{width: '16%', height: '120%'}}>
                 <img width={'80%'} src={thumbnail}/>
             </TBodyTD>

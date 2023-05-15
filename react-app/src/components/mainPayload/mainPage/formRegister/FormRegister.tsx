@@ -17,6 +17,7 @@ type GreetingProps = {
 
 const FormRegister: FC<GreetingProps> = ({closeModal, setSuccess}) => {
     const {registration} = AuthService()
+    const [errors, setErrors] = useState('')
 
     const handleSubmit = async (email: string, password: string, first_name: string, last_name: string, username: string) => {
         try {
@@ -24,7 +25,7 @@ const FormRegister: FC<GreetingProps> = ({closeModal, setSuccess}) => {
             closeModal()
             setSuccess()
         } catch (e) {
-            console.log(e.response?.data?.message)
+            setErrors(e.response?.data?.message);
         }
     }
 
@@ -132,6 +133,9 @@ const FormRegister: FC<GreetingProps> = ({closeModal, setSuccess}) => {
                             <FormLabel>Эл. почта</FormLabel>
                             <FormErrorMessage name={'email'} component={'div'}/>
                         </FormContainer>
+                        {errors.length > 0 ? <FormContainer>
+                            <h4 style={{color: 'red'}}>{errors}</h4>
+                        </FormContainer> : null}
                     </FormWrap>
                 <FormSubmitButton type={'submit'} disabled={!(isValid && dirty) || isSubmitting} onClick={async () => {
                     isSubmitting = true

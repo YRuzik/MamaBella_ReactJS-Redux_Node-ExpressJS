@@ -4,21 +4,23 @@ import {Link} from "react-router-dom";
 
 type GreetingsProps = {
     thumbnail: string;
+    title: string;
+    id: number;
+    description: string;
 }
 
-const NewsItem: FC<GreetingsProps> = ({thumbnail}) => {
-    const id = '1'
+const NewsItem: FC<GreetingsProps> = ({thumbnail, title, description, id}) => {
     return (
         <Link to={`/news/${id}`}>
             <NewsItemContainer>
                 <NewsItemThumbnail src={thumbnail}/>
                 <NewsItemBody>
                     <NewsItemTitle>
-                        Супер новость
+                        {title}
                     </NewsItemTitle>
                     <hr/>
                     <NewsItemText>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, minus.
+                        {description.length > 30 ? description.slice(0, 60) + '...' : description}
                     </NewsItemText>
                 </NewsItemBody>
             </NewsItemContainer>

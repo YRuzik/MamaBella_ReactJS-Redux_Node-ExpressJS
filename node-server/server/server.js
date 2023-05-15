@@ -7,16 +7,28 @@ const controller = require("../controller/controller");
 const app = express();
 const server = http.createServer(app);
 const errorMiddleware = require('../middlewares/error-middleware')
+const passport = require("passport");
 
 const cors = require('cors');
 
 const cookieParser = require('cookie-parser')
+const vk = require("../vk-auth");
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
+app.use(cors({credentials: true, origin: ['http://localhost:3000']}))
+app.use(
+    require("express-session")({
+        secret: "keyboard cat",
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/api", controller);
 app.use(errorMiddleware)
+
 
 const start = async () => {
     try {

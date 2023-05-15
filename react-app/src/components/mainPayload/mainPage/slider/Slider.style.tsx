@@ -86,8 +86,9 @@ export const SliderButtonPrev = styled.button`
   border: none;
   background: none;
   border-radius: 50px;
-  color: wheat;
+  color: orangered;
   cursor: pointer;
+  background-color: rgba(90,90,90,.05);
 `
 
 export const SliderButtonNext = styled.button`
@@ -99,8 +100,9 @@ export const SliderButtonNext = styled.button`
   border: none;
   background: none;
   border-radius: 50px;
-  color: wheat;
+  color: orangered;
   cursor: pointer;
+  background-color: rgba(90,90,90,.05);
 `
 
 export const SliderWrapperSlides = styled.div`

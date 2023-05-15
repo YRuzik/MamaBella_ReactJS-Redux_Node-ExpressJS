@@ -91,6 +91,24 @@ export const TBodyTD = styled.td`
   }
 `
 
+export const TBodyTD1 = styled.td`
+  text-align: start;
+  display: table-cell;
+  vertical-align: inherit;
+  padding: 15px 0 15px 0;
+  border-top: 1px solid rgba(0,0,0,.25);
+  font-size: 0.7rem;
+  
+  &:first-child {
+    padding-left: 32px;
+  }
+
+  &:last-child {
+    width: 70px;
+    padding-right: 32px;
+  }
+`
+
 export const UserTableTBody = styled.tbody`
 `
 

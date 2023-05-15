@@ -5,6 +5,13 @@ import {useDispatch} from "react-redux";
 import axios from "axios";
 import {API_URL} from "../http";
 
+export const setFetching = () => {
+    return {
+        type: 'FETCHING',
+        payload: 'loading'
+    }
+}
+
 export const setAdminLayout = (adminLayout: boolean) => {
     return {
         type: 'SET_ADMIN_LAYOUT',

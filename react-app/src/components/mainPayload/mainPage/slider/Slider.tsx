@@ -7,21 +7,25 @@ import {
     WhiteTransitionUp
 } from "./Slider.style";
 import {FC, useEffect, useRef, useState} from "react";
+import {INews} from "../../../../interfaces/AuthInterfaces";
+import UserService from "../../../../services/UserService";
+import {useNavigate} from "react-router-dom";
 
 type GreetingProp = {
     thumbnail: string
 }
 
-const SliderItem: FC<GreetingProp> = ({thumbnail}) => {
+const SliderItem: FC<INews> = ({thumbnail, description, title, id}) => {
+    const navigate = useNavigate()
     return (
-        <SliderItemBody>
+        <SliderItemBody onClick={() => navigate(`/news/${id}`)}>
             <SliderItemContent>
                 <SliderItemThumbnail src={thumbnail}/>
-                <SliderItemTextBody>
+                <SliderItemTextBody style={{backgroundColor: 'rgba(90, 90, 90,.5)', padding: '0.2rem', borderRadius: '10px'}}>
                     <SliderItemPromo>
-                        Новость!
+                        {description.length > 30 ? description.slice(0, 30) + '...' : description}
                     </SliderItemPromo>
-                    Вкусные выходные!
+                    {title.length > 20 ? title.slice(0, 20) + '...' : title}
                 </SliderItemTextBody>
             </SliderItemContent>
         </SliderItemBody>
@@ -35,15 +39,12 @@ const Slider: FC = () => {
     const [width, setWidth] = useState(0);
     const [xPosition, setXPosition] = useState(0);
 
-    const slidesSRC = [
-        'https://aplus.by/wp-content/uploads/2022/10/5463565673567-1536x1024.jpg',
-        'https://ohotamyasa.ru/wp-content/uploads/2/6/9/269ca8a4f0d98d46cedf6af8fa61117e.jpeg',
-        'https://img3.goodfon.ru/original/1280x720/e/99/picca-blyudo-pomidory-perec.jpg',
-        'https://aplus.by/wp-content/uploads/2022/10/5463565673567-1536x1024.jpg',
-        'https://ohotamyasa.ru/wp-content/uploads/2/6/9/269ca8a4f0d98d46cedf6af8fa61117e.jpeg',
-        'https://img3.goodfon.ru/original/1280x720/e/99/picca-blyudo-pomidory-perec.jpg',
+    const [news, setNews] = useState<INews[]>([])
+    const {takeNews} = UserService()
 
-    ]
+    useEffect(() => {
+        takeNews().then((data) => setNews(data.data))
+    }, [])
 
     useEffect(() => {
         if (slideRef.current) {
@@ -57,7 +58,7 @@ const Slider: FC = () => {
         setXPosition(xPosition + width);
     }
     const handleClickNext = () => {
-        if (index === slidesSRC.length - 4) {
+        if (index === news.length - 4) {
             setIndex(0);
             setXPosition(0);
         } else {
@@ -66,15 +67,15 @@ const Slider: FC = () => {
         }
     };
 
-    const renderSlider = (array: string[]) => {
-        return array.map((item, id) => {
+    const renderSlider = (array: INews[]) => {
+        return array.map(({...props}: any, id) => {
             return (
-                <SliderItem thumbnail={item} key={id}/>
+                <SliderItem {...props} key={id}/>
             )
         })
     }
 
-    const slides = renderSlider(slidesSRC)
+    const slides = renderSlider(news)
 
     return (
         <SliderContainer>

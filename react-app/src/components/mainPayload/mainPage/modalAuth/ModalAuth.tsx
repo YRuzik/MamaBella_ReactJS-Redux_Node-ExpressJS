@@ -7,11 +7,14 @@ import {
     ModalAuthContainer,
     ModalAuthSlidingButton,
     ModalAuthSlidingContainer,
-    ModalAuthSlidingTitle
+    ModalAuthSlidingTitle, ModalAuthVKButton
 } from "./ModalAuth.style";
 import {HeaderLogoTitle} from "../../header/Header.style";
 import FormRegister from "../formRegister/FormRegister";
 import FormAuth from "../formAuth/FormAuth";
+import AuthService from "../../../../services/AuthService";
+import UserService from "../../../../services/UserService";
+import {useNavigate} from "react-router-dom";
 
 type GreetingProps = {
     isOpen: boolean;
@@ -21,6 +24,7 @@ type GreetingProps = {
 
 const ModalAuth: FC<GreetingProps> = ({isOpen, onClose, openSuccess}) => {
     const [auth, setAuth] = useState(true)
+    const navigate = useNavigate()
 
     const modalAuthWindow = useRef() as React.MutableRefObject<HTMLDivElement>
     const onClickOutside = useOnClickOutside
@@ -55,9 +59,14 @@ const ModalAuth: FC<GreetingProps> = ({isOpen, onClose, openSuccess}) => {
                                         <br/>
                                     </HeaderLogoTitle>
                                 </ModalAuthSlidingTitle>
+
                                 <ModalAuthSlidingButton onClick={() => setAuth(!auth)}>
                                     {auth ? 'Зарегистрироваться' : 'Войти в аккаунт'}
                                 </ModalAuthSlidingButton>
+                                <ModalAuthVKButton to={'http://localhost:8083/api/auth/vkontakte'}>
+                                    Войти через VK <i className="fab fa-vk" style={{paddingLeft: '0.5rem'}}></i>
+                                </ModalAuthVKButton>
+
                             </ModalAuthSlidingContainer>
                                 {auth ? <FormAuth/> : <FormRegister closeModal={() => onClose()} setSuccess={() => {
                                     openSuccess()

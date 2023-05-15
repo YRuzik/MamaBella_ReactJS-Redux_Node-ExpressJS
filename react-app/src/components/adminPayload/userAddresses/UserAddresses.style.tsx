@@ -5,7 +5,7 @@ export const UAContainer = styled.div`
   padding: 1rem;
   border-radius: 15px;
   border: 1px solid rgba(114, 77, 169, 0.32);
-  min-width: 50%;
+  min-width: 45%;
   min-height: 25rem;
   max-height: 25rem;
 `

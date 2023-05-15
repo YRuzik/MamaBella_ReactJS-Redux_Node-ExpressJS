@@ -12,6 +12,26 @@ class MailService {
         }
     })
 
+    async sendChangePasswordMail(to, link) {
+        try {
+            await this.transport.sendMail({
+                from: process.env.SMTP_USER,
+                to: to,
+                subject: 'Смена пароля',
+                text: '',
+                html:
+                    `
+                    <div>
+                        <h1>Для смены пароля перейдите на</h1>
+                        <a href="${link}">${link}</a>
+                    </div>
+                `
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async sendActivationMail(to, link) {
         try {
             await this.transport.sendMail({

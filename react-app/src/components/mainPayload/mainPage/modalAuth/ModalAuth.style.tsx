@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const ModalAuthContainer = styled.div`
   background: white;
@@ -54,6 +55,23 @@ export const ModalAuthSlidingButton = styled.button`
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
   
+  &:hover {
+    opacity: 0.9;
+  }
+`
+
+export const ModalAuthVKButton = styled(Link)`
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 1rem;
+  background-color: mediumslateblue;
+  transition: opacity 0.2s ease-in-out;
+  vertical-align: center;
+  line-height: 1.5rem;
+
   &:hover {
     opacity: 0.9;
   }

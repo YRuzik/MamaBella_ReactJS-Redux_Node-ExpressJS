@@ -30,12 +30,20 @@ export interface IAddresses {
 }
 
 export interface ICart {
-    id: number;
-    user_id: number;
+    id: string;
+    product_id: number;
     thumbnail: string;
-    dimension: string;
+    size: string;
     weight: string;
     title: string;
     description: string;
     price: string;
+    quantity: number;
+}
+
+export interface INews {
+    id: number;
+    title: string;
+    thumbnail: string;
+    description: string;
 }

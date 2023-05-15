@@ -21,9 +21,15 @@ const PersonalAccountPage: FC = () => {
     const warningTitle = 'Ваш аккаунт не активирован!'
     const warningLabel = 'Пожалуйста, зайдите на свою почту, через которую регестрировали аккаунт на нашем сайте и активируйте свой аккаунт!'
 
+    function getCookie(name:string) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()!.split(';').shift();
+    }
+
     useEffect(() => {
         dispatch(setAdminLayout(false))
-        if (!localStorage.getItem('token')) {
+        if (!localStorage.getItem('token') && !getCookie('accessToken-vk')) {
             navigate('/')
         }
     }, [])
