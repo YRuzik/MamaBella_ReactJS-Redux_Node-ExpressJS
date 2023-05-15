@@ -2,11 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# NOTE
+# Before installing, read the text below
 
-## This project is still in development!
+## The project is finished!
 
-To run the server part of the application, you need your own Postgresql database (I hope in the future I will be able to post my own, for the convenience of testing the project)! The configuration for using the database is at the following. ways:
+I have to finish the project and leave it in a slightly unfinished and raw state for some reason.
+
+In order to try the project, you need to install the database attached to this project! (Any interface will do). The configuration for using the database is at the following ways:
 
 ### /node-server/DB/knexfile
 
@@ -29,38 +31,52 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:8083/api](http://localhost:8083/api)
 
-#### Available end points:
+#### Available end-points:
 
 ---
 
 - Products
 
-  - /pizza
-  - /pizza/pizzaID
-  - /salads
-  - /salads/saladsID
-  - /snacks
-  - /snacks/snacksID
-  - /drinks
-  - /drinks/drinksID
-  - /souses
-  - /souses/sousesID
+  - /products (GET)
+  - /products/:id (GET)
 
 ---
 
 - Users
 
-    - /registration
-    - /login
-    - /logout
-    - /refresh (refresh user token)
-    - /activate/:link (link for account activation)
+    - /registration (POST)
+    - /login (POST)
+    - /logout (POST)
+    - /refresh (refresh user token) (GET)
+    - /activate/:link (link for account activation) (GET)
+    - /set-password/:id (POST)
+    - /change-password/:link (GET)
+    - /verify-email (POST)
+    - /news (GET)
+    - /news/:id (GET)
+    - /addresses/:id (GET)
+    - /addresses (GET)
+    - /addresses/:id (DELETE)
+    - /create-order (POST)
+    - /orders/:id (GET)
 
 ---
 
-- Test
-  - /users (only for authorized users)
+- Admin
+  - /users/:id (GET)
+  - /users (GET)
+  - /analytics (GET)
+  - /delete/user/:id (POST xd)
+  - /products_change/:id (POST)
+  - /change-role/:id (POST)
 
+---
+
+- VK-auth (OAuth 2.0)
+  - /auth/vkontakte/callback (GET)
+  - /auth/vkontakte (GET)
+  - /vkuser (GET)
+  - /vk-login-ura/:id (GET)
 ### "react-app"
 
 ### `npm start`

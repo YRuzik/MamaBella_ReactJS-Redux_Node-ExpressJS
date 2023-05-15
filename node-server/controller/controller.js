@@ -483,8 +483,8 @@ router.post('/products_change/:id', authMiddleware, async (req, res, next) => {
     passport.use(
         new VKontakteStrategy(
             {
-                clientID: "51637959",
-                clientSecret: "yXiXukn32zVAJDNNz3jM",
+                clientID: process.env.VK_CLIENT_ID,
+                clientSecret: process.env.VK_SECRET_KEY,
                 callbackURL: "http://localhost:8083/api/auth/vkontakte/callback", //где найти url на случаи успеха и неудачи
                 scope: ["email"],
                 profileFields: ['email'],
